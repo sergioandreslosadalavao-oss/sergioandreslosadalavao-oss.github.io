@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aroma Mágico - Cafetería Artesanal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6F4E37;
+            --secondary: #C4A484;
+            --accent: #D2B48C;
+            --light: #F5F5DC;
+            --dark: #3E2723;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(62, 39, 35, 0.9);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20%;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--accent);
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: var(--accent);
+        }
+        
+        /* Secciones */
+        section {
+            padding: 5rem 10%;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: var(--accent);
+            bottom: 0;
+            left: 25%;
+        }
+        
+        /* Sobre Nosotros */
+        .about {
+            background-color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Menú */
+        .menu {
+            background-color: var(--light);
+        }
+        
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .category-btn {
+            padding: 10px 25px;
+            background-color: white;
+            border: 1px solid var(--secondary);
+            color: var(--primary);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .menu-item-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .menu-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .menu-item:hover .menu-item-img img {
+            transform: scale(1.1);
+        }
+        
+        .menu-item-info {
+            padding: 1.5rem;
+        }
+        
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .menu-item-header h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .menu-item-header span {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        /* Testimonios */
+        .testimonials {
+            background-color: white;
+        }
+        
+        .testimonials-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding-bottom: 2rem;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .testimonial {
+            min-width: 300px;
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            scroll-snap-align: start;
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+        
+        .testimonial-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .testimonial-info h4 {
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+        
+        .testimonial-info .stars {
+            color: var(--accent);
+        }
+        
+        /* Contacto */
+        .contact {
+            background-color: var(--light);
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-text h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 10% 2rem;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-col h3 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-col p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+        
+        .footer-links li {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .opening-hours p {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .opening-hours span {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero {
+                padding: 0 10%;
+            }
+            
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 1rem 5%;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 0 1rem 0.5rem;
+            }
+            
+            section {
+                padding: 3rem 5%;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-mug-hot"></i>
+                <h1>Aroma <span>Mágico</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#menu">Menú</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        
+        <div class="hero" id="inicio">
+            <h2>Descubre el auténtico sabor del café</h2>
+            <p>En Aroma Mágico, cada taza cuenta una historia. Utilizamos granos de café de la más alta calidad, tostados artesanalmente para ofrecerte una experiencia única.</p>
+            <a href="#menu" class="btn">Ver Menú</a>
+        </div>
+    </header>
+    
+    <!-- Sobre Nosotros -->
+    <section class="about" id="nosotros">
+        <div class="section-title">
+            <h2>Sobre Nosotros</h2>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Nuestra historia</h3>
+                <p>Fundada en 2010, Aroma Mágico nació de la pasión por el café de calidad y el deseo de crear un espacio acogedor donde las personas pudieran disfrutar de momentos especiales.</p>
+                <p>Seleccionamos personalmente cada grano de café de las mejores fincas alrededor del mundo, asegurando un sabor excepcional en cada taza que servimos.</p>
+                <p>Nuestros baristas certificados están entrenados en las técnicas más modernas de preparación de café, desde el clásico espresso hasta métodos de vertido artesanales.</p>
+                <a href="#contacto" class="btn">Visítanos</a>
+            </div>
+            
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Interior de la cafetería">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Menú -->
+    <section class="menu" id="menu">
+        <div class="section-title">
+            <h2>Nuestro Menú</h2>
+        </div>
+        
+        <div class="menu-categories">
+            <button class="category-btn active">Todo</button>
+            <button class="category-btn">Cafés</button>
+            <button class="category-btn">Tés</button>
+            <button class="category-btn">Repostería</button>
+            <button class="category-btn">Desayunos</button>
+        </div>
+        
+        <div class="menu-items">
+            <!-- Café 1 -->
+            <div class="menu-item">
+                <div class="menu-item-img">
+                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Espresso">
+                </div>
+                <div class="menu-item-info">
+                    <div class="menu-item-header">
+                        <h3>Espresso Clásico</h3>
+                        <span>$2.50</span>
+                    </div>
+                    <p>Un shot intenso de nuestro café premium, preparado con maestría para resaltar sus notas de chocolate y nuez.</p>
+                </div>
+            </div>
+            
+            <!-- Café 2 -->
+            <div class="menu-item">
+                <div class="menu-item-img">
+                    <img src="https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Cappuccino">
+                </div>
+                <div class="menu-item-info">
+                    <div class="menu-item-header">
+                        <h3>Cappuccino Artesanal</h3>
+                        <span>$3.75</span>
+                    </div>
+                    <p>La perfecta combinación de espresso, leche vaporizada y una suave capa de espuma, decorado con arte latte.</p>
+                </div>
+            </div>
+            
+            <!-- Té -->
+            <div class="menu-item">
+                <div class="menu-item-img">
+                    <img src="https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Té verde">
+                </div>
+                <div class="menu-item-info">
+                    <div class="menu-item-header">
+                        <h3>Té Verde Matcha</h3>
+                        <span>$4.00</span>
+                    </div>
+                    <p>Matcha premium de Japón, preparado tradicionalmente con notas herbales y un delicado dulzor natural.</p>
+                </div>
+            </div>
+            
+            <!-- Repostería -->
+            <div class="menu-item">
+                <div class="menu-item-img">
+                    <img src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1229&q=80" alt="Croissant">
+                </div>
+                <div class="menu-item-info">
+                    <div class="menu-item-header">
+                        <h3>Croissant Artesanal</h3>
+                        <span>$3.25</span>
+                    </div>
+                    <p>Hojaldre crujiente y mantecoso, horneado diariamente con mantequilla de la más alta calidad.</p>
+                </div>
+            </div>
+            
+            <!-- Desayuno -->
+            <div class="menu-item">
+                <div class="menu-item-img">
+                    <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=749&q=80" alt="Desayuno continental">
+                </div>
+                <div class="menu-item-info">
+                    <div class="menu-item-header">
+                        <h3>Desayuno Continental</h3>
+                        <span>$8.50</span>
+                    </div>
+                    <p>Pan fresco, mermelada casera, queso seleccionado, fruta de temporada y tu elección de café o té.</p>
+                </div>
+            </div>
+            
+            <!-- Café Especial -->
+            <div class="menu-item">
+                <div class="menu-item-img">
+                    <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Café de especialidad">
+                </div>
+                <div class="menu-item-info">
+                    <div class="menu-item-header">
+                        <h3>Café de Especialidad</h3>
+                        <span>$5.00</span>
+                    </div>
+                    <p>Preparado con métodos alternativos (Chemex, V60 o Aeropress) utilizando granos de microlote seleccionados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonios -->
+    <section class="testimonials" id="testimonios">
+        <div class="section-title">
+            <h2>Lo que dicen nuestros clientes</h2>
+        </div>
+        
+        <div class="testimonials-container">
+            <!-- Testimonio 1 -->
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <div class="testimonial-img">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Cliente 1">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>María González</h4>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p>"El mejor café de la ciudad. El ambiente es acogedor y el personal siempre amable. Mi lugar favorito para trabajar y relajarme."</p>
+            </div>
+            
+            <!-- Testimonio 2 -->
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <div class="testimonial-img">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Cliente 2">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Carlos Martínez</h4>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <p>"Como conocedor de café, puedo decir que Aroma Mágico ofrece una de las mejores experiencias. Sus granos de especialidad son excepcionales."</p>
+            </div>
+            
+            <!-- Testimonio 3 -->
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <div class="testimonial-img">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Cliente 3">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Laura Fernández</h4>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p>"No solo el café es increíble, sino que sus postres son deliciosos. El croissant de almendras es mi debilidad. ¡Altamente recomendado!"</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contacto -->
+    <section class="contact" id="contacto">
+        <div class="section-title">
+            <h2>Contacto</h2>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Dirección</h3>
+                        <p>Calle del Aroma, 123<br>Distrito Cafetalero<br>28015 Madrid, España</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Teléfono</h3>
+                        <p>+34 912 345 678</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Email</h3>
+                        <p>hola@aromamagico.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Horario</h3>
+                        <p>Lunes a Viernes: 7:30 - 20:00<br>Sábado y Domingo: 8:00 - 18:00</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="asunto">Asunto</label>
+                        <input type="text" id="asunto" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Aroma Mágico</h3>
+                <p>Una experiencia de café única donde cada taza cuenta una historia. Comprometidos con la calidad, la comunidad y la pasión por el buen café.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Sobre Nosotros</a></li>
+                    <li><a href="#menu">Nuestro Menú</a></li>
+                    <li><a href="#testimonios">Testimonios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Horario</h3>
+                <div class="opening-hours">
+                    <p>Lunes <span>7:30 - 20:00</span></p>
+                    <p>Martes <span>7:30 - 20:00</span></p>
+                    <p>Miércoles <span>7:30 - 20:00</span></p>
+                    <p>Jueves <span>7:30 - 20:00</span></p>
+                    <p>Viernes <span>7:30 - 20:00</span></p>
+                    <p>Sábado <span>8:00 - 18:00</span></p>
+                    <p>Domingo <span>8:00 - 18:00</span></p>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Suscríbete para recibir nuestras promociones y eventos especiales.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Tu email" required>
+                    <button type="submit" class="btn">Suscribir</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Aroma Mágico. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Cambiar categorías del menú
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remover clase active de todos los botones
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // Agregar clase active al botón clickeado
+                btn.classList.add('active');
+                
+                // Aquí iría la lógica para filtrar los items del menú
+                // Por simplicidad, en este ejemplo solo cambiamos el botón activo
+            });
+        });
+        
+        // Smooth scrolling para los enlaces del navbar
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animación al hacer scroll
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const header = document.querySelector('header');
+            
+            if(scrollPosition > 100) {
+                header.style.backgroundPositionY = -(scrollPosition * 0.5) + 'px';
+            }
+        });
+    </script>
+</body>
+</html>
